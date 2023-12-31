@@ -3,11 +3,12 @@ const fs = require('fs/promises')
 const myFileWriter = async (fileName, fileContent) => {
 	// write code here
 	// dont chnage function name
-try {
+ try {
     await fs.writeFile(fileName, fileContent);
     console.log(`File ${fileName} created successfully.`);
   } catch (error) {
     console.error(`Error creating file ${fileName}: ${error.message}`);
+    // Potentially rethrow or log more details here
   }
 }
 
@@ -19,7 +20,7 @@ const myFileReader = async (fileName) => {
     return fileContent;
   } catch (error) {
     console.error(`Error reading file ${fileName}: ${error.message}`);
-    return null;
+    throw error; // Rethrow to handle at a higher level
   }
 }
 
@@ -27,13 +28,14 @@ const myFileReader = async (fileName) => {
 const myFileUpdater = async (fileName, fileContent) => {
 	// write code here
 	// dont chnage function name
- try {
+try {
     const currentContent = await fs.readFile(fileName, 'utf8');
     const updatedContent = currentContent + newContent;
     await fs.writeFile(fileName, updatedContent);
     console.log(`File ${fileName} updated successfully.`);
   } catch (error) {
     console.error(`Error updating file ${fileName}: ${error.message}`);
+    // Handle cases like missing file or invalid path
   }
 }
 
